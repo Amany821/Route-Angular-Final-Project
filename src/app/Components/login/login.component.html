@@ -1,0 +1,12 @@
+<div class="container my-5">
+    <h3>Login:</h3>
+    <div [formGroup]="loginForm">
+        <small>Email</small>
+        <input type="email" [formControlName]="'email'" class="form-control">
+        <small>Password</small>
+        <input type="password" [formControlName]="'password'" class="form-control">
+        <div class="row justify-content-end">
+            <button class="btn bg-main text-center text-white col-1 mt-3" [disabled]="!loginForm.valid">Login</button>
+        </div>
+    </div>
+</div>
