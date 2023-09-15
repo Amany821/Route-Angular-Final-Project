@@ -10,7 +10,7 @@
         <small>Confirm Password</small>
         <input type="password" [formControlName]="'confirmPassword'" class="form-control">
         <small>Phone</small>
-        <input type="number" [formControlName]="'phone'" class="form-control">
+        <input type="tel" [formControlName]="'phone'" class="form-control">
         <div class="row justify-content-end">
             <button class="btn bg-main text-center text-white col-1 mt-3" [disabled]="!registerForm.valid">Regirster</button>
         </div>
