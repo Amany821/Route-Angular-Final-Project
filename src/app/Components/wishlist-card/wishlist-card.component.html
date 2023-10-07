@@ -1,0 +1,20 @@
+<div class="card mb-3">
+    <div class="row">
+      <div class="col-md-4">
+        <img [src]="product.imageCover" class="img-fluid rounded-start">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{product.title}}</h5>
+          <p class="card-text text-main">{{product.price}} EGP</p>
+          <p class="card-text">{{product.description}}</p>
+        </div>
+      </div>
+      <div class="card-footer border-0 bg-transparent">
+        <div class="d-flex justify-content-end align-items-baseline mx-2">
+          <button class="btn btn-danger mx-2" (click)="onDeleteProduct(product._id)"><i class="fa fa-trash text-white me-2"></i>Remove</button>
+          <app-add-to-cart [productId]="product._id"></app-add-to-cart>
+        </div>
+      </div>
+    </div>
+  </div>

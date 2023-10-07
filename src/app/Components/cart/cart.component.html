@@ -1,0 +1,38 @@
+<ng-container *ngIf="cartProducts && cartProducts.products && cartProducts.products.length > 0; else informUserAboutCartIsEmpty">
+    <button class="btn btn-outline-danger d-block ms-auto" (click)="onClearCart()">Clear cart</button>
+    <div class="row my-3 shadow p-2 rounded-2" *ngFor="let product of cartProducts.products; let  i = index">
+        <div class="col-1">
+            <img class="w-100" [src]="product.product.imageCover" alt="">
+        </div>
+        <div class="col-11">
+            <div class="d-flex justify-content-between">
+                <h3>{{product.product.title}}</h3>
+                <button class="btn btn-danger mb-3" (click)="onRemoveCartProduct(product.product._id)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                Remove
+                </button>
+            </div>
+            <div class="d-flex justify-content-between">
+                <h5>{{product.product.category.name}}</h5>
+                <div class="mb-3">
+                    <button class="btn bg-main text-white mx-2" (click)="onUpdateProductQuantity(product.product._id, product.count -1, i, 'decrease')">-</button>
+                    <span>{{product.count}}</span>
+                    <button class="btn bg-main text-white mx-2" (click)="onUpdateProductQuantity(product.product._id, product.count +1, i, 'increase')">+</button>
+                </div>
+            </div>
+            <p class="d-flex justify-content-between">
+                <span>{{product.price.toLocaleString()}} EGP</span>
+                <span><i class="fa fa-star rating-color"></i>{{product.product.ratingsAverage}}</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center bg-light p-2 my-2">
+        <button class="order-2 btn bg-main text-white" [routerLink]="'/check-out/' + cartProducts._id">Checkout</button>
+        <h5 class="p-2 text-end">Total cart price: <span class="fw-bold">{{cartProducts.totalCartPrice.toLocaleString()}}</span> EGP</h5>
+    </div>
+</ng-container>
+
+<ng-template #informUserAboutCartIsEmpty>
+    <h4 class="text-center fst-italic bg-light p-5 m-5 border">No products in you cart</h4>
+</ng-template>

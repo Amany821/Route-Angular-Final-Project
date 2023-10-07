@@ -1,18 +1,56 @@
 <div class="container my-3">
     <h3>Regirster Now:</h3>
-    <div [formGroup]="registerForm">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
         <small>Name:</small>
-        <input type="text" [formControlName]="'name'" class="form-control">
-        <small>Email</small>
-        <input type="email" [formControlName]="'email'" class="form-control">
-        <small>Password</small>
-        <input type="password" [formControlName]="'password'" class="form-control">
-        <small>Confirm Password</small>
-        <input type="password" [formControlName]="'confirmPassword'" class="form-control">
-        <small>Phone</small>
-        <input type="tel" [formControlName]="'phone'" class="form-control">
-        <div class="row justify-content-end">
-            <button class="btn bg-main text-center text-white col-1 mt-3" [disabled]="!registerForm.valid">Regirster</button>
+        <input type="text" [formControlName]="'name'" placeholder="Please enter Username" class="form-control">
+        <div class="alert alert-danger"
+            *ngIf="registerForm.controls['name'].errors && registerForm.controls['name'].touched">
+            <p *ngIf="registerForm.controls['name'].getError('required')">Username is required</p>
+            <p *ngIf="registerForm.controls['name'].getError('minlength')">Username must contains at least 3 characters
+            </p>
+            <p *ngIf="registerForm.controls['name'].getError('maxlength')">Username must contains at most 20 characters
+            </p>
+            <p *ngIf="registerForm.controls['name'].getError('pattern')">Username must start with uppercase</p>
         </div>
-    </div>
+        <small>Email</small>
+        <input type="email" [formControlName]="'email'" placeholder="Please enter Email" class="form-control">
+        <div class="alert alert-danger"
+            *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].touched">
+            <p *ngIf="registerForm.controls['email'].getError('required')">Email is required</p>
+            <p *ngIf="registerForm.controls['email'].getError('email')">Invalid Email</p>
+        </div>
+        <small>Password</small>
+        <input type="password" [formControlName]="'password'" placeholder="Please enter Password" class="form-control">
+        <div class="alert alert-danger"
+            *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].touched">
+            <p *ngIf="registerForm.controls['password'].getError('required')">Password is required</p>
+            <ul *ngIf="registerForm.controls['password'].getError('pattern')">
+                <li>At least 8 characters long</li>
+                <li>Contains at least one uppercase letter</li>
+                <li>Contains at least one lowercase letter</li>
+                <li>Contains at least one number</li>
+                <li>Contains at least one special character</li>
+                <li>Does not contain any whitespace</li>
+            </ul>
+        </div>
+        <small>Confirm Password</small>
+        <input type="password" [formControlName]="'confirmPassword'" placeholder="Please enter Confirm Password"
+            class="form-control">
+        <div class="alert alert-danger"
+            *ngIf="(registerForm.controls['confirmPassword'].touched && !arePasswordsMatched(registerForm.controls['password'].value, registerForm.controls['confirmPassword'].value))">
+            <p>Password not matched</p>
+        </div>
+        <small>Phone</small>
+        <input type="tel" [formControlName]="'phone'" placeholder="Please enter Phone Number" class="form-control">
+        <div class="alert alert-danger"
+            *ngIf="registerForm.controls['phone'].errors && registerForm.controls['phone'].touched">
+            <p *ngIf="registerForm.controls['phone'].getError('required')">Phone is required</p>
+            <p *ngIf="registerForm.controls['phone'].getError('pattern')">Invalid Phone Number</p>
+        </div>
+        <button type="submit" class="btn bg-main text-center text-white ms-auto d-block mt-3"
+            [disabled]="!registerForm.valid || isLoading">
+            <span *ngIf="!isLoading">Register</span>
+            <span *ngIf="isLoading"><i class="fa fa-spinner fa-spin"></i></span>
+        </button>
+    </form>
 </div>

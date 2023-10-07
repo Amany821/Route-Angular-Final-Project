@@ -1,0 +1,17 @@
+<div>
+    <h2>Shop Popular Categories</h2>
+    <owl-carousel-o [options]="categoryCustomOptions">
+      <ng-container *ngFor="let category of categories">
+        <ng-template carouselSlide [id]="category._id">
+          <div class="cursor-pointer" (click)="onGetCategoriesInfo(category._id, category.name)" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+            <img [src]="category.image" [alt]="category.name" height="200">
+            <h4 class="h6">{{category.name}}</h4>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+
+    <app-sub-category-card [subCategory]="{categoryName: categoryName, subCategories: subCategories}"></app-sub-category-card>
+
+  </div>

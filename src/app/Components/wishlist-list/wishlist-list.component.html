@@ -1,0 +1,13 @@
+<div class="container my-4">
+    <h3>My Wishlist</h3>
+    <div class="bg-light w-100 p-3">
+        <ng-container *ngIf="wishListProducts.length > 0; else NoItemsInTheWishList">
+            <div *ngFor="let wishListProduct of wishListProducts">
+                <app-wishlist-card [product]="wishListProduct"></app-wishlist-card>
+            </div>
+        </ng-container>
+        <ng-template #NoItemsInTheWishList>
+            <h4 class="text-center fst-italic bg-light p-5 m-5 border">No products in you wishlist</h4>
+        </ng-template>
+    </div>
+</div>

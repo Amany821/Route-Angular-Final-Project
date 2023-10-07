@@ -1,0 +1,14 @@
+<div class="container">
+    <form class="w-75 m-auto my-5" [formGroup]="shippingAddress" (ngSubmit)="onCheckout()">
+        <label>Details</label>
+        <input type="text" class="form-control" [formControlName]="'details'">
+        
+        <label>Phone</label>
+        <input type="tel" class="form-control" [formControlName]="'phone'">
+        
+        <label>City</label>
+        <input type="text" class="form-control" [formControlName]="'city'">
+    
+        <button class="btn btn-success my-4 px-3" type="submit">Order</button>
+    </form>
+</div>

@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row my-4">
+        <div *ngFor="let category of categories" class="col-4 mb-4" (click)="onGetSubCategories(category._id, category.name)" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+            <app-category-card [category]="category"></app-category-card>
+        </div>
+    </div>
+</div>
+
+<app-sub-category-card [subCategory]="{categoryName: categoryName, subCategories: subCategories}"></app-sub-category-card>
+

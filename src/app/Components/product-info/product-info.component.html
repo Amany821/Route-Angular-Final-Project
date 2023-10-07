@@ -1,1 +1,15 @@
-<p>product-info works!</p>
+<div class="product p-1 overflow-hidden">
+    <div routerLink="/product/{{product._id}}" class="cursor-pointer">
+        <img class="w-100" [src]="product.imageCover" alt="">
+        <h5 class="text-main">{{product.category.name}}</h5>
+        <h6>{{product.title.split(" ").splice(0, 2).join(" ")}}</h6>
+        <div class="d-flex justify-content-between align-items-center">
+            <p>{{product.price}} EGP</p>
+            <p><i class="fa fa-star rating-color"></i>{{product.ratingsAverage}}</p>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mx-2">
+        <app-add-to-cart [productId]="product._id"></app-add-to-cart>
+        <app-add-to-wishlist #wishlist [productId]="product._id" [isProductAdded]="wishListService.userWishlist.includes(product._id)"></app-add-to-wishlist>
+    </div>
+</div>

@@ -1,24 +1,102 @@
-<div class="bg-main-light">
-    <div class="row justify-content-around align-items-center gx-0">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <img src="../../../assets/images/freshcart-logo.png">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul *ngIf="isUserLoggedIn" class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item cursor-pointer">
+                    <a class="nav-link" [routerLink]="'home'" [routerLinkActive]="'active'">Home</a>
+                </li>
+                <li class="nav-item cursor-pointer">
+                    <a class="nav-link" [routerLink]="'allorders'" [routerLinkActive]="'active'">All Orders</a>
+                </li>
+                <li class="nav-item cursor-pointer">
+                    <a class="nav-link" [routerLink]="'wishlist'" [routerLinkActive]="'active'">Wishlist</a>
+                </li>
+                <li class="nav-item cursor-pointer">
+                    <a class="nav-link" [routerLink]="'products'" [routerLinkActive]="'active'">Products</a>
+                </li>
+                <li class="nav-item cursor-pointer">
+                    <a class="nav-link" [routerLink]="'categories'" [routerLinkActive]="'active'">Categories</a>
+                </li>
+                <li class="nav-item cursor-pointer">
+                    <a class="nav-link" [routerLink]="'brands'" [routerLinkActive]="'active'">Brands</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mb-2 ms-auto mb-lg-0" [ngClass]="!isUserLoggedIn ? 'align-items-center' : 'align-items-start'">
+                <li class="nav-item p-1 cursor-pointer">
+                    <i class="fa fa-instagram align-middle"></i>
+                </li>
+                <li class="nav-item p-1 cursor-pointer">
+                    <i class="fa fa-facebook-square align-middle"></i>
+                </li>
+                <li class="nav-item p-1 cursor-pointer">
+                    <i class="fa fa-snapchat align-middle"></i>
+                </li>
+                <li class="nav-item p-1 cursor-pointer">
+                    <i class="fa fa-twitter align-middle"></i>
+                </li>
+                <li class="nav-item p-1 cursor-pointer">
+                    <i class="fa fa-linkedin-square align-middle"></i>
+                </li>
+                <li class="nav-item p-1 cursor-pointer">
+                    <i class="fa fa-youtube-play align-middle"></i>
+                </li>
+                <li class="nav-item p-1 cursor-pointer" [routerLink]="'cart'">
+                    <i class="fa fa-shopping-cart text-main align-middle" style="font-size:24px"></i>
+                    <span class='badge badge-warning' id='lblCartCount'> {{numOfCartItems}} </span>
+                </li>
+                <li *ngIf="!isUserLoggedIn" class="nav-item p-1">
+                    <a class="p-1" [routerLink]="'login'" [routerLinkActive]="'active'">Login</a>
+                </li>
+                <li *ngIf="!isUserLoggedIn" class="nav-item p-1">
+                    <a class="p-1" [routerLink]="'register'" [routerLinkActive]="'active'">Register</a>
+                </li>
+                <li *ngIf="isUserLoggedIn" class="nav-item p-1" (click)="onLogOut()">
+                    <button class="btn p-1">SignOut</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="bg-main-light">
+    <div class="row justify-content-around align-items-center gx-0" [ngClass]="!isUserLoggedIn ? 'py-3' : ''">
         <div class="col-1">
             <img src="../../../assets/images/freshcart-logo.png">
         </div>
         <div class="col-5">
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item border-0 bg-transparent cursor-pointer">
-                    <a routerLink="home" routerLinkActive="active">Home</a>
+            <ul *ngIf="isUserLoggedIn" class="navbar-nav list-group list-group-horizontal">
+                <li class="nav-item list-group-item border-0 bg-transparent cursor-pointer">
+                    <a [routerLink]="home" [routerLinkActive]="'active'">Home</a>
                 </li>
                 <li class="list-group-item border-0 bg-transparent cursor-pointer">
-                    <a routerLinkActive="active">Cart</a>
+                    <a [routerLink]="cart" [routerLinkActive]="'active'">Cart</a>
                 </li>
                 <li class="list-group-item border-0 bg-transparent cursor-pointer">
-                    <a routerLinkActive="active">Product</a>
+                    <a [routerLink]="allOrders" [routerLinkActive]="'active'">All Orders</a>
                 </li>
                 <li class="list-group-item border-0 bg-transparent cursor-pointer">
-                    <a routerLinkActive="active">Categories</a>
+                    <a [routerLink]="products" [routerLinkActive]="'active'">Products</a>
                 </li>
                 <li class="list-group-item border-0 bg-transparent cursor-pointer">
-                    <a routerLinkActive="active">Brands</a>
+                    <a [routerLink]="categories" [routerLinkActive]="'active'">Categories</a>
+                </li>
+                <li class="list-group-item border-0 bg-transparent cursor-pointer">
+                    <a [routerLink]="brands" [routerLinkActive]="'active'">Brands</a>
                 </li>
             </ul>
         </div>
@@ -42,16 +120,16 @@
                 <li class="list-group-item border-0 bg-transparent p-1 cursor-pointer">
                     <i class="fa fa-youtube-play "></i>
                 </li>
-                <li class="list-group-item border-0 bg-transparent p-1 cursor-pointer">
-                    <a class="p-1" routerLink="login">Login</a>
+                <li *ngIf="!isUserLoggedIn"  class="list-group-item border-0 bg-transparent p-1 cursor-pointer">
+                    <a class="p-1" [routerLink]="login" [routerLinkActive]="'active'">Login</a>
                 </li>
-                <li class="list-group-item border-0 bg-transparent p-1 cursor-pointer">
-                    <a class="p-1" routerLink="register">Register</a>
+                <li *ngIf="!isUserLoggedIn" class="list-group-item border-0 bg-transparent p-1 cursor-pointer">
+                    <a class="p-1" [routerLink]="register" [routerLinkActive]="'active'">Register</a>
                 </li>
-                <li class="list-group-item border-0 bg-transparent p-1 cursor-pointer">
+                <li *ngIf="isUserLoggedIn" class="list-group-item border-0 bg-transparent p-1 cursor-pointer" (click)="onLogOut()">
                     <button class="btn p-1">SignOut</button>
                 </li>
             </ul>
         </div>
     </div>
-</div>
+</div> -->

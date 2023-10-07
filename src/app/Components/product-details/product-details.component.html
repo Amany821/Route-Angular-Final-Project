@@ -1,0 +1,33 @@
+<div class="row align-items-center py-5">
+  <div class="col-3">
+    <div>
+      <owl-carousel-o [options]="customOptions">
+        <ng-container *ngIf="productDetails && productDetails.images">
+          <ng-container *ngFor="let img of productDetails.images">
+            <ng-template carouselSlide [id]="img">
+              <img [src]="img">
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </owl-carousel-o>
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1>{{productDetails && productDetails.title}}</h1>
+      <div class="d-flex align-items-center justify-content-end col-4">
+        <app-add-to-cart [productId]="productId"></app-add-to-cart>
+        <app-add-to-wishlist #wishlist [productId]="productId" [isProductAdded]="wishListService.userWishlist.includes(productId) "></app-add-to-wishlist>
+      </div>
+    </div>
+    <div>
+      <p class="text-muted">{{productDetails && productDetails.description}}</p>
+      <h5 class="text-main">{{productDetails && productDetails.category.name}}</h5>
+      <div class="d-flex justify-content-between align-items-center">
+        <p>{{productDetails && productDetails.price.toLocaleString()}} EGP</p>
+        <p><i class="fa fa-star rating-color" aria-hidden="true"></i> {{productDetails &&
+          productDetails.ratingsAverage}}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+    aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">{{subCategory.categoryName}}'s subcategories</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p *ngIf="subCategory.subCategories.length < 1">No Sub-Categories available on this category</p>
+        <div class="row align-items-center">
+            <ng-container *ngFor="let subCategory of subCategory.subCategories">
+                <div class="col-6 my-3">
+                    <div class="card">
+                        <h6 class="text-center p-3">{{subCategory.name}}</h6>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
