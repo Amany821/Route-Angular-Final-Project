@@ -10,6 +10,6 @@
     </div>
     <div class="d-flex justify-content-between align-items-center mx-2">
         <app-add-to-cart [productId]="product._id"></app-add-to-cart>
-        <app-add-to-wishlist #wishlist [productId]="product._id" [isProductAdded]="wishListService.userWishlist.includes(product._id)"></app-add-to-wishlist>
+        <app-add-to-wishlist #wishlist [productId]="product._id" [isProductAdded]="wishListService.userWishlist && wishListService.userWishlist.length > 0 ? wishListService.userWishlist.includes(product._id) : ''"></app-add-to-wishlist>
     </div>
 </div>

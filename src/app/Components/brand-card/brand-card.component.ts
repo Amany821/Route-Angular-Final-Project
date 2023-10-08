@@ -13,6 +13,10 @@ export class BrandCardComponent {
 
   constructor(
     private modalService: ModalService
-  ) {}
+  ) { }
 
+  onGetBrandInfo(){
+    this.modalService.openModal("brand-info", new Map<string, any>([["brand", this.brand]]));
   }
+
+}

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Brand } from 'src/app/Interfaces/brand';
+import { ModalService } from 'src/app/Services/modal.service';
 
 @Component({
   selector: 'app-brand-info',
@@ -9,5 +10,7 @@ import { Brand } from 'src/app/Interfaces/brand';
 export class BrandInfoComponent {
   @Input() brand!: Brand;
 
-  constructor() {}
+  constructor(
+    public modalService: ModalService
+  ) {}
 }

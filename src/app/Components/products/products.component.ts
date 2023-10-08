@@ -11,6 +11,7 @@ import { WishlistService } from 'src/app/Services/wishlist.service';
 export class ProductsComponent implements OnInit{
   products: Product[] = [];
   userWishlist: string[] = [];
+  filterValue = "";
 
   constructor(
     private productService: ProductService,
@@ -41,8 +42,20 @@ export class ProductsComponent implements OnInit{
         debugger
           const removeTheProduct = this.wishListService.userWishlist.filter((x: any) => x !== res);
           this.wishListService.userWishlist = removeTheProduct;
+          this.wishListService.removeProductFromWishList(res).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            
+           }
+        })
       }
     });
+  }
+
+  onSearchChange(e: any) {
+    this.products = this.products.filter(x =>
+      x.title!.toString().toLowerCase().indexOf(e.target.value.toLowerCase()) >= 0
+    );
   }
 
 }

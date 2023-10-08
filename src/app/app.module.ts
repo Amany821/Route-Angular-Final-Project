@@ -11,7 +11,7 @@ import { RegisterComponent } from './Components/register/register.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { HomeComponent } from './Components/home/home.component';
 import { ProductInfoComponent } from './Components/product-info/product-info.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartComponent } from './Components/cart/cart.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
@@ -38,6 +38,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgetPasswordComponent } from './Components/forget-password/forget-password.component';
 import { VerificationCodeComponent } from './Components/verification-code/verification-code.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
+import { LoaderComponent } from './Components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
     BrandInfoComponent,
     ForgetPasswordComponent,
     VerificationCodeComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
     RouterModule,
     BrowserAnimationsModule,
     CommonModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [{
       provide: HTTP_INTERCEPTORS,
