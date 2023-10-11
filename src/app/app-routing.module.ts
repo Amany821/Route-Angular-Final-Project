@@ -36,7 +36,7 @@ const routes: Routes = [
   {path: 'wishlist', canActivate: [AuthGuard], component: WishlistListComponent},
   {path: 'check-out/:cartId', canActivate: [AuthGuard], component: CheckoutComponent},
   
-  {path: '**', component: NotFoundComponent},
+  {path: '**', canActivate: [AuthGuard], component: NotFoundComponent},
 ];
 
 @NgModule({

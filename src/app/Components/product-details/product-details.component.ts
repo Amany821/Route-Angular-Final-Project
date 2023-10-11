@@ -5,6 +5,8 @@ import { ProductService } from 'src/app/Services/product.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AddToWishlistComponent } from '../add-to-wishlist/add-to-wishlist.component';
 import { WishlistService } from 'src/app/Services/wishlist.service';
+import { LoadingService } from 'src/app/Services/loading.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -38,37 +40,52 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
-    public wishListService: WishlistService
+    public wishListService: WishlistService,
+    public loaderService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loaderService.start();
     this.activatedRoute.paramMap.subscribe((params) => {
       this.productId = params.get('id') || ""
     });
+    this.onGetProductDetails();
+    this.onGetUserWishList();
+    this.wishListService.isProductAddedToCart.subscribe({
+      next: (res: any) => {
+        //debugger
+          const removeTheProduct = this.wishListService.userWishlist.filter((x: any) => x !== res);
+          this.wishListService.userWishlist = removeTheProduct;
+      }
+    });
+  }
 
-    this.productService.getProductDetails(this.productId).subscribe({
+  onGetProductDetails() {
+    this.productService.getProductDetails(this.productId).pipe(
+      finalize(() => {
+        this.loaderService.stop();
+      })
+    ).subscribe({
       next: (res: any) => {
         this.productDetails = res.data;
         // console.log(res.data);
       }, error: () => {
       }
     });
+  }
 
-    this.wishListService.getUserWishList().subscribe({
+  onGetUserWishList() {
+    this.wishListService.getUserWishList().pipe(
+      finalize(() => {
+        this.loaderService.stop();
+      })
+    ).subscribe({
       next:(res: any) => {
         console.log(res);
         console.log(res.data.map((x: Product) => x._id));
         
         this.wishListService.userWishlist = res.data.map((x: Product) => x._id);
         // this.userWishlist = res.data.map((x: Product) => x._id);
-      }
-    });
-
-    this.wishListService.isProductAddedToCart.subscribe({
-      next: (res: any) => {
-        debugger
-          const removeTheProduct = this.wishListService.userWishlist.filter((x: any) => x !== res);
-          this.wishListService.userWishlist = removeTheProduct;
       }
     });
   }

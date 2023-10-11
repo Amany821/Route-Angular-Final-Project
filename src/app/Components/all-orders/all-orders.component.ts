@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { finalize } from 'rxjs';
 import { OrderDetails } from 'src/app/Interfaces/order-details';
+import { LoadingService } from 'src/app/Services/loading.service';
 import { OrderService } from 'src/app/Services/order.service';
 
 @Component({
@@ -27,11 +29,17 @@ export class AllOrdersComponent implements OnInit{
     autoplay: false
   }
   constructor(
-    private orderService: OrderService
+    private orderService: OrderService,
+    private loaderService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.orderService.getAllUserOrders(localStorage.getItem('userId')!).subscribe({
+    this.loaderService.start();
+    this.orderService.getAllUserOrders(localStorage.getItem('userId')!).pipe(
+      finalize(() => {
+        this.loaderService.stop();
+      })
+    ).subscribe({
       next:(res: any) => {
         // console.log(res);
         this.orders = res

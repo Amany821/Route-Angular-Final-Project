@@ -11,10 +11,10 @@ import { CategoryService } from 'src/app/Services/category.service';
   styleUrls: ['./category-slider.component.scss']
 })
 export class CategorySliderComponent implements OnInit{
-  // categories: Brand[] = [];
   categories: Category[] = [];
   subCategories: SubCategoryList[] = [];
   categoryName!: string;
+  noSub!: boolean;
   categoryCustomOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -45,12 +45,17 @@ export class CategorySliderComponent implements OnInit{
   }
 
   onGetCategoriesInfo(categoryId: string, categoryName: string) {
-    this.subCategories = []
-    this.categoryName = categoryName
+    this.subCategories = [];
+    this.categoryName = categoryName;
+    this.noSub = false;
     this.categoriesService.getAllSubCategoriesOnCategory(categoryId).subscribe({
       next:(res: any) => {
         this.subCategories = res.data;
-        // console.log(this.subCategories);
+        if(this.subCategories.length > 0) {
+          this.noSub = false;
+        } else{
+          this.noSub = true;
+        }
       },error: () => {}
     })
   }

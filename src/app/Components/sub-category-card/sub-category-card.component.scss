@@ -1,0 +1,20 @@
+.loader-container{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(229 230 228 / 80%);
+    text-align: center;
+}
+
+.loader-container i.fa.fa-spinner.fa-spin{
+    margin-top: 17rem;
+    font-size: xxx-large;
+}
+
+p.no-sub {
+    width: 100%;
+    height: 100%;
+    font-size: xx-large;
+    font-style: italic;
+    text-align: center;
+    padding-top: 17rem;
+}

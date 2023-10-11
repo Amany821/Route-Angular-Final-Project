@@ -1,5 +1,7 @@
-<h2>Please enter the verification code sent to your email</h2>
+<div class="container my-5">
+    <h2 class="mb-4">Please enter the verification code sent to your email</h2>
 <form [formGroup]="verificationCodeForm" (ngSubmit)="onSubmit()">
-    <input type="text" class="form-control" [formControlName]="'resetCode'">
-    <button class="btn bg-main text-white" [disabled]="!verificationCodeForm.valid">Verify</button>
+    <input type="text" class="form-control mb-3" [formControlName]="'resetCode'">
+    <button class="btn bg-main text-white ms-auto d-block" [disabled]="!verificationCodeForm.valid">Verify</button>
 </form>
+</div>

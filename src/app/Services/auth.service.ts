@@ -26,8 +26,9 @@ export class AuthService {
   }
 
   logOut(){
-    // localStorage.removeItem('userToken');
-    localStorage.setItem('userToken', '');
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userId');
+    //localStorage.setItem('userToken', '');
     this.isUserLoggedIn.next(false);
     this.router.navigate(['login']);
   }

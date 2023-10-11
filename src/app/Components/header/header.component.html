@@ -45,7 +45,7 @@
                 <li class="nav-item p-1 cursor-pointer">
                     <i class="fa fa-youtube-play align-middle"></i>
                 </li>
-                <li class="nav-item p-1 cursor-pointer" [routerLink]="'cart'">
+                <li *ngIf="isUserLoggedIn" class="nav-item p-1 cursor-pointer" [routerLink]="'cart'">
                     <i class="fa fa-shopping-cart text-main align-middle" style="font-size:24px"></i>
                     <span class='badge badge-warning' id='lblCartCount'> {{numOfCartItems}} </span>
                 </li>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs';
 import { Product } from 'src/app/Interfaces/product';
+import { LoadingService } from 'src/app/Services/loading.service';
 import { WishlistService } from 'src/app/Services/wishlist.service';
 import Swal from 'sweetalert2';
 
@@ -10,15 +12,20 @@ import Swal from 'sweetalert2';
 })
 export class WishlistListComponent implements OnInit{
   wishListProducts: Product[] = [];
+
   constructor(
-    private wishListService: WishlistService
+    private wishListService: WishlistService,
+    public loaderService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.wishListService.getUserWishList().subscribe({
+    this.wishListService.getUserWishList().pipe(
+      finalize(() => {
+        this.loaderService.stop();
+      })
+    ).subscribe({
       next:(res: any) => {
-        this.wishListProducts = res.data
-        // console.log(res);
+        this.wishListProducts = res.data;
       },error:() => {}
     });
 

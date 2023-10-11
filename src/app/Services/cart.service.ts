@@ -17,9 +17,6 @@ export class CartService {
     //     this.numOfCartItems.next(res.numOfCartItems);
     //   });
     // }
-    this.getUserCartProducts().subscribe((res) => {
-      this.numOfCartItems.next(res.numOfCartItems);
-    });
    }
 
   addProductToCart(productId: string): Observable<any> {

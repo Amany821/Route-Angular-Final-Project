@@ -3,7 +3,7 @@
   <app-category-slider></app-category-slider>
       <input class="form-control my-4" type="text" placeholder="Search by Product Name" [(ngModel)]="filterValue" (input)="onSearchChange($event)">
   <div class="row">
-    <div *ngFor="let product of products" class="col-md-3">
+    <div *ngFor="let product of filteredProducts" class="col-md-3">
       <app-product-info [product]="product" [userWishlist]="wishListService.userWishlist"></app-product-info>
     </div>
   </div>

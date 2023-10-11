@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { finalize } from 'rxjs';
 import { AuthService } from 'src/app/Services/auth.service';
 import { CartService } from 'src/app/Services/cart.service';
+import { LoadingService } from 'src/app/Services/loading.service';
 import { WishlistService } from 'src/app/Services/wishlist.service';
 import Swal from 'sweetalert2';
 
@@ -16,12 +18,17 @@ export class AddToCartComponent {
     private cartService: CartService,
     private authService: AuthService,
     private wishlistService: WishlistService,
+    private loaderService: LoadingService
   ) {}
 
   onAddProductToCart(productId: string) {
-    this.cartService.addProductToCart(productId).subscribe({
+    this.loaderService.start();
+    this.cartService.addProductToCart(productId).pipe(
+      finalize(() => {
+        this.loaderService.stop();
+      })
+    ).subscribe({
       next:(res: any) => {
-        // console.log(res);
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -32,9 +39,6 @@ export class AddToCartComponent {
         localStorage.setItem('userId', res.data.cartOwner);
         this.cartService.numOfCartItems.next(res.numOfCartItems);
         this.wishlistService.isProductAddedToCart.emit(productId);
-        this.wishlistService.removeProductFromWishList(productId).subscribe({
-          next:() => {}
-        })
       }, error:(err: any) =>{
         if(err.status == 401) {
           this.authService.logOut();

@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -47,18 +48,28 @@ export class LoginComponent implements OnInit {
           title: 'Action Succeeded',
           text: 'You\'re now logged in'
         });
+        const decodedToken = jwt_decode(res.token) as { id: string };
         localStorage.setItem('userToken', res.token);
+        localStorage.setItem('userId', decodedToken.id);
         this.authService.isUserLoggedIn.next(true);
         this.router.navigate(['home']);
       },
       error: (err: any) => {
         // console.log(err);
+        if(err.status == 401) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'Incorrect Email or Password!',
+          });
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong, Please try again!',
+          });
+        }
         
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong, Please try again!',
-        });
         this.isLoading = false;
       }
     })

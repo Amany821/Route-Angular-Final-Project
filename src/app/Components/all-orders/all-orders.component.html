@@ -75,7 +75,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <p class="ms-4">Ordered At: <i>{{order.createdAt}}</i></p>
+              <p class="ms-4">Ordered At: <i>{{order.createdAt | date: 'dd/MM/yyyy, h:mm a'}}</i></p>
               <p class="me-4 text-end">Total Order Amount: <i class="fw-bold">{{order.totalOrderPrice.toLocaleString()}} EGP</i></p>
             </div>
           </div>

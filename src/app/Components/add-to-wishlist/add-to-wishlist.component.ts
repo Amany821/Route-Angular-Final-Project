@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { finalize } from 'rxjs';
 import { Product } from 'src/app/Interfaces/product';
+import { LoadingService } from 'src/app/Services/loading.service';
 import { WishlistService } from 'src/app/Services/wishlist.service';
 import Swal from 'sweetalert2'
 
@@ -13,12 +15,18 @@ export class AddToWishlistComponent {
   @Input() isProductAdded: boolean = false;
 
   constructor(
-    private wishListService: WishlistService
+    private wishListService: WishlistService,
+    private loaderService: LoadingService
   ) {}
 
   onAddProductToWishList(productId: string) {
+    this.loaderService.start();
     this.isProductAdded = true;
-    this.wishListService.addProductToWishList(productId).subscribe({
+    this.wishListService.addProductToWishList(productId).pipe(
+      finalize(() => {
+        this.loaderService.stop();
+      })
+    ).subscribe({
       next:(res: any) => {
         // console.log(res);
         Swal.fire({

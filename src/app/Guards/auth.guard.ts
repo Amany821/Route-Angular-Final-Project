@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
+import { AuthService } from '../Services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,22 +10,23 @@ import jwt_decode from 'jwt-decode';
 export class AuthGuard implements CanActivate{
   
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    if(localStorage.getItem('userToken') != null) {
+    if(localStorage.getItem('userToken') && localStorage.getItem('userToken') != null) {
       try{
-        const decoded = jwt_decode(localStorage.getItem('userToken')|| '');
         return true;
       }catch (error){
-        // localStorage.removeItem('userToken');
-        localStorage.setItem('userToken', '');
+        localStorage.removeItem('userToken');
+        this.authService.isUserLoggedIn.next(false);
+        //localStorage.setItem('userToken', '');
         this.router.navigate(['/login']);
         return false;
       }
     }else{
+      this.router.navigate(['/login']);
       return false;
     }
   }
 }
- 

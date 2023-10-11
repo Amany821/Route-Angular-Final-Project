@@ -2,7 +2,7 @@
     <h3>Regirster Now:</h3>
     <form [formGroup]="registerForm" (ngSubmit)="register()">
         <small>Name:</small>
-        <input type="text" [formControlName]="'name'" placeholder="Please enter Username" class="form-control">
+        <input type="text" [formControlName]="'name'" placeholder="Please enter Username" class="form-control mb-3">
         <div class="alert alert-danger"
             *ngIf="registerForm.controls['name'].errors && registerForm.controls['name'].touched">
             <p *ngIf="registerForm.controls['name'].getError('required')">Username is required</p>
@@ -13,14 +13,14 @@
             <p *ngIf="registerForm.controls['name'].getError('pattern')">Username must start with uppercase</p>
         </div>
         <small>Email</small>
-        <input type="email" [formControlName]="'email'" placeholder="Please enter Email" class="form-control">
+        <input type="email" [formControlName]="'email'" placeholder="Please enter Email" class="form-control mb-3">
         <div class="alert alert-danger"
             *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].touched">
             <p *ngIf="registerForm.controls['email'].getError('required')">Email is required</p>
             <p *ngIf="registerForm.controls['email'].getError('email')">Invalid Email</p>
         </div>
         <small>Password</small>
-        <input type="password" [formControlName]="'password'" placeholder="Please enter Password" class="form-control">
+        <input type="password" [formControlName]="'password'" placeholder="Please enter Password" class="form-control mb-3">
         <div class="alert alert-danger"
             *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].touched">
             <p *ngIf="registerForm.controls['password'].getError('required')">Password is required</p>
@@ -35,13 +35,13 @@
         </div>
         <small>Confirm Password</small>
         <input type="password" [formControlName]="'confirmPassword'" placeholder="Please enter Confirm Password"
-            class="form-control">
+            class="form-control mb-3">
         <div class="alert alert-danger"
             *ngIf="(registerForm.controls['confirmPassword'].touched && !arePasswordsMatched(registerForm.controls['password'].value, registerForm.controls['confirmPassword'].value))">
             <p>Password not matched</p>
         </div>
         <small>Phone</small>
-        <input type="tel" [formControlName]="'phone'" placeholder="Please enter Phone Number" class="form-control">
+        <input type="tel" [formControlName]="'phone'" placeholder="Please enter Phone Number" class="form-control mb-3">
         <div class="alert alert-danger"
             *ngIf="registerForm.controls['phone'].errors && registerForm.controls['phone'].touched">
             <p *ngIf="registerForm.controls['phone'].getError('required')">Phone is required</p>
