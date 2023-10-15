@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit, OnChanges{
       })
     ).subscribe({
       next:(res: any) => {
-        this.cartService.numOfCartItems.next(res.numOfCartItems);
+        //this.cartService.numOfCartItems.next(res.numOfCartItems);
       }
     });
   }

@@ -37,7 +37,6 @@ export class AddToCartComponent {
           timer: 1500
         });
         localStorage.setItem('userId', res.data.cartOwner);
-        this.cartService.numOfCartItems.next(res.numOfCartItems);
         this.wishlistService.isProductAddedToCart.emit(productId);
       }, error:(err: any) =>{
         if(err.status == 401) {

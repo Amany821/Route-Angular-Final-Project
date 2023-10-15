@@ -35,13 +35,14 @@ export class CartComponent implements OnInit{
       next: (res: any) => {
         this.cartProducts = res.data;
         // console.log(this.cartProducts);
+        //this.cartService.numOfCartItems.next(res.numOfCartItems);
       }, error: (err: any) => {}
     });
   }
 
   onRemoveCartProduct(productId: string) {
     this.loaderService.start();
-    this.cartService.numOfCartItems.next(this.cartProducts.products.length - 1);
+    //this.cartService.numOfCartItems.next(this.cartProducts.products.length - 1);
     // const productToRemove = this.cartProducts.products.find(item => item.product._id === productId);
     // this.cartProducts.products = this.cartProducts.products.filter(item => item.product._id !== productToRemove?.product._id);
     // this.cartProducts.totalCartPrice -= productToRemove!.price * productToRemove!.count;
@@ -59,7 +60,7 @@ export class CartComponent implements OnInit{
           icon: "success",
           showConfirmButton: true
         });
-        this.cartService.numOfCartItems.next(res.numOfCartItems);
+        //this.cartService.numOfCartItems.next(res.numOfCartItems);
       }, error: (err) => {
         this.onGetCartProducts();
         Swal.fire({
@@ -95,7 +96,7 @@ export class CartComponent implements OnInit{
               'Your cart has been cleared.',
               'success'
             );
-            this.cartService.numOfCartItems.next(0);
+            //this.cartService.numOfCartItems.next(0);
             this.router.navigate(['/home']);
           }, error:() =>{}
         })
